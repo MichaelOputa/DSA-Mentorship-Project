@@ -13,6 +13,18 @@ const port = process.env.PORT
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
+
+const allowedOrigins = [
+  "https://dsa-frontend-project-o7i5.vercel.app",
+  "http://localhost:5173/login",
+];
+app.use(cors({
+  origin: "allowedOrigins",
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
 
 app.use("/api/auth",AuthRoutes)
 app.use("/api/profile", profileRoutes);
